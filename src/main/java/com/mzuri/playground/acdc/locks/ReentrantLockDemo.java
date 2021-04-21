@@ -19,6 +19,7 @@ class SharedResource{
 }
 
 class Counter implements Runnable {
+
     private String threadName;
 
     ReentrantLock lock;
@@ -27,26 +28,28 @@ class Counter implements Runnable {
         this.threadName = threadName;
         this.lock = lock;
     }
+    
     @Override
     public void run() {
-        System.out.println("In Counter run method, thread " + threadName
-                + " is waiting to get lock");
+        System.out.println("In Counter run method, thread " + threadName + " is waiting to get lock");
+
         // acquiring the lock
         lock.lock();
+
         try {
             System.out.println("Thread " + threadName + " has got lock");
+
             SharedResource.count++;
-            System.out.println("Thread " + threadName +
-                    " Count " + SharedResource.count);
+
+            System.out.println("Thread " + threadName + " Count " + SharedResource.count);
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } finally{
-            System.out.println("Thread " + threadName
-                    + " releasing lock");
+            System.out.println("Thread " + threadName  + " releasing lock");
             // releasing the lock
             lock.unlock();
         }
